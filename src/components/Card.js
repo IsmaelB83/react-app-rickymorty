@@ -1,6 +1,9 @@
+// Node imports
 import React, { Component } from 'react';
-import './Styles.css';
-let ta = require('time-ago');
+import ta from 'time-ago';
+// CSS imports
+import './Card.css';
+
 
 export default class CharacterCard extends Component {
   

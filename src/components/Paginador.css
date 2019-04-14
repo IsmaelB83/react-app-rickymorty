@@ -1,0 +1,42 @@
+.card-container-footer {
+    padding: 10px;
+    text-align: center;
+    background-color:#333333;
+    color: #D0CCBF;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center; 
+    margin-bottom: 10px;
+  }
+  
+  .card-container-footer:last-child {
+    margin-top: 10px;
+  }
+  
+  .card-container-footer h3 {
+    line-height: 1.6rem;
+  }
+  
+  .card-container-footer button:first-child {
+    margin-right: 20px;
+  }
+  
+  .card-container-footer button:last-child {
+    margin-left: 20px;
+  }
+  
+  .card-container-footer button {
+    background-color: #555;
+    border: 1px solid #D0CCBF;
+    color: #D0CCBF;
+    font-weight: bold;
+    padding: 5px 15px;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .card-container-footer button:hover {
+    background-color: #D0CCBF;
+    color: #555;
+  }

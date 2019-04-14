@@ -1,9 +1,13 @@
+// Node imports
 import React, { Component } from 'react';
+// Own imports
 import Formulario from './Formulario';
 import Paginador from './Paginador';
 import Card from './Card';
+// CSS imports
+import './Personaje.css';
+// Assets imports
 import logo from './spinner.gif';
-import './Styles.css';
 
 export default class Characters extends Component {
     constructor(props) {
@@ -21,34 +25,31 @@ export default class Characters extends Component {
     }
     
     render() {
-      if (this.state.loading === false) {
-        return (
-            <div>
-              <Formulario ref={this.formComp} onFilter={this.filterEventHandler.bind(this)}/>
-              <Paginador ref={this.pageCompTop} page={this.state.page} pages={this.state.pages} onClick={this.paginatorEventHandler.bind(this)}/>
-               <div className="card-container">
-                { this.state.characters.length > 0 && this.state.characters.map( (ch, i) => 
-                    <Card key={ch.id} id={ch.id} name={ch.name} status={ch.status} created={ch.created} 
-                                      image={ch.image} species={ch.species} gender={ch.gender} origin={ch.origin.name}
-                                      last={ch.location.name}/>)
-                }
-                { this.state.characters.length === 0 && 
-                    <h1>No hay resultados para los filtros indicados</h1>
-                }
-              </div>
-              <Paginador ref={this.pageCompBottom} page={this.state.page} pages={this.state.pages} onClick={this.paginatorEventHandler.bind(this)}/>
+      return (
+          <div>
+            <Formulario ref={this.formComp} onFilter={this.filterEventHandler.bind(this)}/>
+            <Paginador ref={this.pageCompTop} page={this.state.page} pages={this.state.pages} onClick={this.paginatorEventHandler.bind(this)}/>
+              <div className="card-container">
+              { this.state.loading && 
+                  <div className="card-container">
+                    <div>
+                      <img src={logo} alt="loading..." />
+                      <h2>Loading data...</h2>
+                    </div>
+                  </div>
+              }
+              { !this.state.loading && this.state.characters.length > 0 && this.state.characters.map( (ch, i) => 
+                  <Card key={ch.id} id={ch.id} name={ch.name} status={ch.status} created={ch.created} 
+                                    image={ch.image} species={ch.species} gender={ch.gender} origin={ch.origin.name}
+                                    last={ch.location.name}/>)
+              }
+              { !this.state.loading && this.state.characters.length === 0 && 
+                  <h1>No hay resultados para los filtros indicados</h1>
+              }
             </div>
-        );
-      } else {
-        return (
-          <div className="card-container">
-            <div>
-              <img src={logo} alt="loading..." />
-              <h2>Loading data...</h2>
-            </div>
+            <Paginador ref={this.pageCompBottom} page={this.state.page} pages={this.state.pages} onClick={this.paginatorEventHandler.bind(this)}/>
           </div>
-        );
-      }
+      );
     }
   
     componentDidMount() {
@@ -105,6 +106,7 @@ export default class Characters extends Component {
     }
 
     async filterEventHandler() {
+      this.setState({loading: true});
       let url = 'https://rickandmortyapi.com/api/character/?';
       let filters = this.formComp.current.state;
       if (filters.name !== '') url += `name=${filters.name}`;

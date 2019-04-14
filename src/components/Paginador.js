@@ -1,8 +1,9 @@
+// Node imports
 import React, { Component } from 'react';
-import './Styles.css';
+// CSS imports
+import './Paginador.css';
 
 export default class Paginator extends Component {
-  // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
     this.state = {

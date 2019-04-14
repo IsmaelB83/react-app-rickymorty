@@ -1,5 +1,8 @@
+// Node imports
 import React, { Component } from 'react';
-import './Styles.css';
+// CSS imports
+import './Formulario.css';
+
 
 export default class Formulario extends Component {
   

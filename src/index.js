@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import RickMorty from './components/Personajes';
+import App from './components/Personaje';
 import * as serviceWorker from './serviceWorker';
 
 // Crear react
-let reactComp = <RickMorty/>
+let reactComp = <App/>
 ReactDOM.render(reactComp, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
