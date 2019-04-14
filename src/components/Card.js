@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Styles.css';
+let ta = require('time-ago');
 
 export default class CharacterCard extends Component {
   
@@ -25,7 +26,7 @@ export default class CharacterCard extends Component {
           <img src={this.state.image} alt="character"></img>
           <div className="card-title">
             <h1>{this.props.name}</h1>
-            <p><span>id: {this.props.id}</span> - <span>{this.props.created}</span></p>
+            <p><span>id: {this.props.id}</span> - <span>{ta.ago(this.props.created)}</span></p>
           </div>
         </div>
         <div className="card-body">
