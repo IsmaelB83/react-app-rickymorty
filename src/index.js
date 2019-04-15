@@ -1,11 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/Personaje';
+import Personaje from './components/Personaje';
+import Form from './components/Formulario';
+import App from './components/RickMorty';
 import * as serviceWorker from './serviceWorker';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 // Crear react
-let reactComp = <App/>
+let reactComp = <Router>
+                    <Route path='/form' component={Form} />
+                    <Route path='/index' component={App} />
+                    <Route path='/personaje/:id' component={Personaje}/>
+                </Router>
+
 ReactDOM.render(reactComp, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

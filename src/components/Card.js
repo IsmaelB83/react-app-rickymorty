@@ -27,9 +27,9 @@ export default class CharacterCard extends Component {
     return (
       <div className="card">
         <div className="card-image">
-          <img src={this.state.image} alt="character"></img>
+          <a href={`/personaje/${this.props.id}`}><img src={this.state.image} alt="character"></img></a>
           <div className="card-title">
-            <h1>{this.props.name}</h1>
+            <a href={`/personaje/${this.props.id}`}><h1>{this.props.name}</h1></a>
             <p><span>id: {this.props.id}</span> - <span>{ta.ago(this.props.created)}</span></p>
           </div>
         </div>
