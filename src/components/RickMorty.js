@@ -61,9 +61,13 @@ export default class RickMorty extends Component {
     }
   
     componentDidMount() {
+      console.log('did mount');
       this.retrieveCharacters('https://rickandmortyapi.com/api/character/');
-    }
+    }  
    
+    componentDidUpdate() {
+    }
+
     async retrieveCharacters(path) {
       try {
           // Consume API

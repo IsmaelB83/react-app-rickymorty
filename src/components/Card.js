@@ -25,7 +25,6 @@ export default class CharacterCard extends Component {
   }
   
   render() {
-    debugger;
     return (
       <Link to={`/personaje/${this.props.id}`}>
         <div className="card">
