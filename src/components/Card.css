@@ -17,7 +17,7 @@
   width: 100%;
 }
 
-.card-title a {
+a {
   text-decoration: none;
 }
 
@@ -50,6 +50,7 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 20px;
+  height: 222px;
 }
 
 .card-body p {

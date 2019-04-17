@@ -19,6 +19,14 @@ export default class RickMorty extends Component {
         loading: true,
         characters: []
       }
+      /*
+        Redireccionar vía props.history:
+          setTimeout(() => {
+            this.props.history.push('/personaje/22');
+          }, 5000); Redireccionar via props.history 
+        Otra opción vía componente: 
+          <Redirect to='/personaje/22'/>
+      */
     }
     
     componentWillMount() {

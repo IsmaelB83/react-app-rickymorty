@@ -25,6 +25,11 @@ body {
   color: #D0CCBF;
 }
 
+.header a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .section {
   padding: 20px;
 }

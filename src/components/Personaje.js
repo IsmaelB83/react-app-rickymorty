@@ -1,9 +1,10 @@
 // Node imports
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 // Own imports
 import Card from './Card';
 // CSS imports
-import './RickMorty.css';
+import './Personaje.css';
 // Assets imports
 import logo from './spinner.gif';
 
@@ -38,9 +39,13 @@ export default class Personaje extends Component {
               }
               { !this.state.loading && 
                 this.state.success &&
+                <div>
                 <Card key={this.state.character.id} id={this.state.character.id} name={this.state.character.name} status={this.state.character.status} 
                       created={this.state.character.created} image={this.state.character.image} species={this.state.character.species}
-                      gender={this.state.character.gender} origin={this.state.character.origin.name} last={this.state.character.location.name}/>
+                      gender={this.state.character.gender} origin={this.state.character.origin.name} last={this.state.character.location.name}>
+                </Card>
+                <Link className="back-link" to="/index">Volver</Link>
+                </div>
               }
             </div>
           </div>

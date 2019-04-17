@@ -4,14 +4,18 @@ import './index.css';
 import Personaje from './components/Personaje';
 import Form from './components/Formulario';
 import App from './components/RickMorty';
+import Error404 from './components/Error404';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // Crear react
 let reactComp = <Router>
-                    <Route path='/form' component={Form} />
-                    <Route path='/index' component={App} />
-                    <Route path='/personaje/:id' component={Personaje}/>
+                    <Switch>
+                        <Route path='/personaje/:id(\d+)' exact component={Personaje}/>
+                        <Route path='/form' exact component={Form} />
+                        <Route path={['/', '/index']} exact component={App} />
+                        <Route component={Error404} />
+                    </Switch>
                 </Router>
 
 ReactDOM.render(reactComp, document.getElementById('root'));
