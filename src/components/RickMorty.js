@@ -9,6 +9,8 @@ import './RickMorty.css';
 // Assets imports
 import logo from './spinner.gif';
 
+import { store, actions } from './Store';
+
 export default class RickMorty extends Component {
     constructor(props) {
       super(props);
@@ -19,17 +21,16 @@ export default class RickMorty extends Component {
         loading: true,
         characters: []
       }
-      /*
-        Redireccionar vía props.history:
-          setTimeout(() => {
-            this.props.history.push('/personaje/22');
-          }, 5000); Redireccionar via props.history 
-        Otra opción vía componente: 
-          <Redirect to='/personaje/22'/>
-      */
     }
     
     componentWillMount() {
+      this.subscribe = store.subscribe(()=> {
+        this.setState(store.getState())
+      });
+    }
+
+    componentWillUnmount() {
+      this.unsub();
     }
     
     render() {
@@ -61,7 +62,6 @@ export default class RickMorty extends Component {
     }
   
     componentDidMount() {
-      console.log('did mount');
       this.retrieveCharacters('https://rickandmortyapi.com/api/character/');
     }  
    
@@ -87,15 +87,13 @@ export default class RickMorty extends Component {
             }
           }
           // Update current state
-          this.setState( 
-            { characters: result.results,
-              loading: false,
-              next: result.info.next,
-              prev: result.info.prev,
-              page: url.searchParams.get("page") ? url.searchParams.get("page") : "1",
-              pages: result.info.pages
-            } 
-          );
+          store.dispatch(actions.setChars(
+            result.results,
+            result.info.next,
+            result.info.prev,
+            url.searchParams.get("page") ? url.searchParams.get("page") : "1",
+            result.info.pages
+          ));
           // Update paginator
           let newPageStatus = { page: this.state.page, pages: this.state.pages }
           this.pageCompTop.current.changeStatus(newPageStatus);
