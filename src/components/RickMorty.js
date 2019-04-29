@@ -9,9 +9,10 @@ import './RickMorty.css';
 // Assets imports
 import logo from './spinner.gif';
 
-import { store, actions } from './Store';
+import { actions } from './Store';
+import { connect } from 'react-redux';
 
-export default class RickMorty extends Component {
+export class RickMorty extends Component {
     constructor(props) {
       super(props);
       this.pageCompTop = React.createRef();
@@ -22,17 +23,7 @@ export default class RickMorty extends Component {
         characters: []
       }
     }
-    
-    componentWillMount() {
-      this.subscribe = store.subscribe(()=> {
-        this.setState(store.getState())
-      });
-    }
 
-    componentWillUnmount() {
-      this.unsub();
-    }
-    
     render() {
       return (
           <div>
@@ -87,13 +78,13 @@ export default class RickMorty extends Component {
             }
           }
           // Update current state
-          store.dispatch(actions.setChars(
+          this.props.set(
             result.results,
             result.info.next,
             result.info.prev,
             url.searchParams.get("page") ? url.searchParams.get("page") : "1",
             result.info.pages
-          ));
+          );
           // Update paginator
           let newPageStatus = { page: this.state.page, pages: this.state.pages }
           this.pageCompTop.current.changeStatus(newPageStatus);
@@ -126,3 +117,9 @@ export default class RickMorty extends Component {
       await this.retrieveCharacters(url);
     }
   }
+
+  const mapState = (state) => { return { characters: state.characters } }
+  const mapActions = { set: actions.setChars }
+  
+  const RickMartyCharacters = connect(mapState, mapActions)(RickMorty); 
+  export default RickMartyCharacters;

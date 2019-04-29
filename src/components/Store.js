@@ -54,7 +54,7 @@ function charReducer(state = {}, action) {
             newState.characters.push(ch);
             return newState;
         case "SET_CHARS": {
-            let newState = { ...action.payload };
+                let newState = { ...action.payload };
             newState.loading = false;
             return newState;
         }
