@@ -2,6 +2,7 @@
 import { createStore } from 'redux';
 
 const initialState = {
+    loading: true,
     characters: []  
 }
 
@@ -27,6 +28,7 @@ export const actions = {
         return {
             type: 'SET_CHARS',
             payload: { 
+                loading: false,
                 characters: characters,
             }
         }
