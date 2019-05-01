@@ -9,8 +9,8 @@ import './RickMorty.css';
 // Assets imports
 import logo from './spinner.gif';
 
-import { actions } from './Store';
-import { connect } from 'react-redux';
+import { store, actions } from './Store';
+
 
 export default class RickMorty extends Component {
     constructor(props) {
@@ -18,7 +18,10 @@ export default class RickMorty extends Component {
       this.pageCompTop = React.createRef();
       this.pageCompBottom = React.createRef();
       this.formComp = React.createRef();
+      this.subscribeStore = null;
       this.state = { 
+        characters: [],
+        loading: true,
         next: '',
         prev: '',
         page: '',
@@ -55,10 +58,18 @@ export default class RickMorty extends Component {
     }
   
     componentDidMount() {
+      this.subscribeStore = store.subscribe( () => {
+        this.setState(
+          { characters: store.getState().characters,
+            loading: false,
+          }
+        )
+      })
       this.retrieveCharacters('https://rickandmortyapi.com/api/character/');
     }  
    
-    componentDidUpdate() {
+    componentWillUnmount() {
+      this.subscribeStore();
     }
 
     async retrieveCharacters(path) {
@@ -79,13 +90,14 @@ export default class RickMorty extends Component {
               }
             }
           }
-          // Update current state
-          this.props.set(
-            result.results,
-            result.info.next,
-            result.info.prev,
-            url.searchParams.get("page") ? url.searchParams.get("page") : "1",
-            result.info.pages
+          // Update store and current state
+          store.dispatch(actions.setChars(result.results));
+          this.setState( 
+            { next: result.info.next,
+              prev: result.info.prev,
+              page: url.searchParams.get("page") ? url.searchParams.get("page") : "1",
+              pages: result.info.pages
+            }
           );
           // Update paginator
           let newPageStatus = { page: this.state.page, pages: this.state.pages }

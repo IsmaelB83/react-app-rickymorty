@@ -2,18 +2,16 @@
 import { createStore } from 'redux';
 
 const initialState = {
-    loading: true,
     characters: []  
 }
 
 // Actions
 export const actions = {
-    addChar: (key, name, status, image, species, gender, origin, last) => {
+    addChar: (id, name, status, image, species, gender, origin, location) => {
         return {
             type: 'ADD_CHAR',
             payload: {
-                key: key,
-                id: key,
+                id: id,
                 name: name,
                 status: status,
                 created: Date.now(),
@@ -21,7 +19,7 @@ export const actions = {
                 species: species,
                 gender: gender,
                 origin: origin,
-                last: last
+                location: location
             }
         };
     },
@@ -30,8 +28,6 @@ export const actions = {
             type: 'SET_CHARS',
             payload: { 
                 characters: characters,
-                loading: false
-
             }
         }
     },
@@ -43,10 +39,10 @@ function charReducer(state, action) {
         case "ADD_CHAR":
             let newState = {...state};
             newState.characters.push({ ...action.payload });
+            newState.loading = false;
             return newState;
         case "SET_CHARS": {
-            let newState = { ...action.payload };
-            return newState;
+            return {...action.payload};
         }
         default:
             return state;
