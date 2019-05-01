@@ -1,61 +1,51 @@
-// Redux
+// Import redux
 import { createStore } from 'redux';
 
 const initialState = {
-    characters: []
-    
+    loading: true,
+    characters: []  
 }
+
 // Actions
 export const actions = {
-    addChar: (name, state, gender, chapters) => {
+    addChar: (key, name, status, image, species, gender, origin, last) => {
         return {
             type: 'ADD_CHAR',
             payload: {
+                key: key,
+                id: key,
                 name: name,
-                state: state,
+                status: status,
+                created: Date.now(),
+                image: image!==''?image:'https://cdn.shopify.com/s/files/1/0191/7850/products/RICKMORTY_39_-_COVER_A_FNL_WEB.jpg?v=1530034748',
+                species: species,
                 gender: gender,
-                chapters: chapters
+                origin: origin,
+                last: last
             }
         };
     },
-    setChars: (characters, next, prev, page, pages) => {
+    setChars: (characters) => {
         return {
             type: 'SET_CHARS',
             payload: { 
                 characters: characters,
-                next: next,
-                prev: prev,
-                page: page,
-                pages: pages
+                loading: false
+
             }
         }
     },
-    incr: () => { 
-        return { 
-            type: 'INCR' 
-        }
-    },
-    decr: () => { 
-        return { 
-            type: 'DECR' 
-        }
-    }
 }
 
 // Reducers: definen como cambia el estado para cada acción: estado + acción ==> acción
-function charReducer(state = {}, action) {
+function charReducer(state, action) {
     switch (action.type) {
         case "ADD_CHAR":
             let newState = {...state};
-            let ch = { 
-                ...action.payload, 
-                id: newState.characters.length + 1 
-            }
-            newState.characters.push(ch);
+            newState.characters.push({ ...action.payload });
             return newState;
         case "SET_CHARS": {
-                let newState = { ...action.payload };
-            newState.loading = false;
+            let newState = { ...action.payload };
             return newState;
         }
         default:

@@ -12,15 +12,17 @@ import logo from './spinner.gif';
 import { actions } from './Store';
 import { connect } from 'react-redux';
 
-export class RickMorty extends Component {
+export default class RickMorty extends Component {
     constructor(props) {
       super(props);
       this.pageCompTop = React.createRef();
       this.pageCompBottom = React.createRef();
       this.formComp = React.createRef();
       this.state = { 
-        loading: true,
-        characters: []
+        next: '',
+        prev: '',
+        page: '',
+        pages: ''
       }
     }
 
@@ -72,8 +74,8 @@ export class RickMorty extends Component {
               results: [],
               info: { next: '',
                       prev: '',
-                      page: "1",
-                      pages: "1",
+                      page: '1',
+                      pages: '1',
               }
             }
           }
@@ -117,9 +119,3 @@ export class RickMorty extends Component {
       await this.retrieveCharacters(url);
     }
   }
-
-  const mapState = (state) => { return { characters: state.characters } }
-  const mapActions = { set: actions.setChars }
-  
-  const RickMartyCharacters = connect(mapState, mapActions)(RickMorty); 
-  export default RickMartyCharacters;

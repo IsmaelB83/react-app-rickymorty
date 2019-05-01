@@ -10,7 +10,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux'; 
 import { store } from './components/Store';
 
-// Crear react
 let reactComp = <Provider store={store}>
                     <Router>
                         <Switch>
